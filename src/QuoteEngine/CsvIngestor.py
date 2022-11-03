@@ -1,15 +1,20 @@
+"""A child class of the IngestorInterface to parse csv files."""
+
 import pandas
+
+from typing import List
 
 from .IngestorInterface import IngestorInterface
 from .Quote import QuoteModel
 
-from typing import List
 
 class CsvIngestor(IngestorInterface):
+    """A child class of the IntestorInterface, responsible for parsing csv files."""
     allowed_extensions = ['csv']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """A classmethod to check the file type and parse csv files."""
         if not cls.can_ingest(path):
             raise Exception('Cannot ingest this file type.')
 
