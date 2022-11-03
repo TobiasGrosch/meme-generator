@@ -1,5 +1,8 @@
 """This module represents the Engine to create Memes."""
 
+import sys
+import os
+
 from PIL import Image, ImageDraw, ImageFont
 from random import randint
 
@@ -7,11 +10,11 @@ from random import randint
 class MemeEngine():
     """The MemeEngine creates the Memes based on input images and quotes."""
 
-    def __init__(self, output_dir, file_ending='.png'):
+    def __init__(self, output_dir, file_ending='.jpg'):
         """Construct a MemeEngine based on an output directory and a file type.
 
         :param output_dir: A string for the output directory of the image.
-        :param file_ending: A string for the image type, defaults to png.
+        :param file_ending: A string for the image type, defaults to jpg.
         """
         self.output_dir = output_dir
         self.file_ending = file_ending
@@ -25,21 +28,25 @@ class MemeEngine():
         :para width: An integer for the Meme's width, defaulting to 500.
         """
         try:
-            img = Image.open(img_path)
-        except OSError:
-            print(f'Could not open/read file {img_path}.')
+            with Image.open(img_path) as img:
+                ratio = width/float(img.size[0])
+                height = int(ratio*float(img.size[1]))
+                img = img.resize((width, height), Image.NEAREST)
 
-        ratio = width/float(img.size[0])
-        height = int(ratio*float(img.size[1]))
-        img = img.resize((width, height), Image.NEAREST)
+                draw = ImageDraw.Draw(img)
+                font = ImageFont.truetype('./templates/arial.ttf', size=20)
 
-        draw = ImageDraw.Draw(img)
-        font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
+                draw.text((randint(5, 50), randint(5, height-20)),
+                        text + ' - ' + author, font=font, fill='white')
 
-        draw.text((randint(5, width), randint(5, height)),
-                  text+author, font=font, fill='white')
+                out_path = self.output_dir + '/' +str(randint(0, 10000000)) + self.file_ending
 
-        out_path = self.output_dir + randint(0, 10000000) + self.file_ending
-        img.save(out_path)
+                if not os.path.exists(self.output_dir):
+                    os.mkdir(self.output_dir)
+
+                img.save(out_path)
+        except OSError or FileNotFoundError:
+            print(f'Could not open/read file {img_path}')
+            sys.exit()
 
         return out_path

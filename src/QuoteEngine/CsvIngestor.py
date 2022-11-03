@@ -29,7 +29,7 @@ class CsvIngestor(IngestorInterface):
         except OSError:
             print(f'Could not open/read file {path}.')
 
-        for _, row in df.iterrows:
+        for _, row in df.iterrows():
             new_quote = QuoteModel(row['body'], row['author'])
             quotes.append(new_quote)
 

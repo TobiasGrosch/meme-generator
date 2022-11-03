@@ -10,7 +10,7 @@ from .Quote import QuoteModel
 from .DocxIngestor import DocxIngestor
 from .CsvIngestor import CsvIngestor
 from .TextIngestor import TextIngestor
-from .PdfIngestor import PdfIngestor
+# from .PdfIngestor import PdfIngestor
 
 
 class Ingestor(IngestorInterface):
