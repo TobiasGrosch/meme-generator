@@ -9,18 +9,25 @@ from .Quote import QuoteModel
 
 
 class CsvIngestor(IngestorInterface):
-    """A child class of the IntestorInterface, responsible for parsing csv files."""
+    """A child class of the IntestorInterface.
+
+    Responsible for parsing csv files.
+    """
+
     allowed_extensions = ['csv']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
-        """A classmethod to check the file type and parse csv files."""
+        """Classmethod to check the file type and parse csv files."""
         if not cls.can_ingest(path):
             raise Exception('Cannot ingest this file type.')
 
         quotes = []
 
-        df = pandas.read_csv(path, header=0)
+        try:
+            df = pandas.read_csv(path, header=0)
+        except OSError:
+            print(f'Could not open/read file {path}.')
 
         for _, row in df.iterrows:
             new_quote = QuoteModel(row['body'], row['author'])
