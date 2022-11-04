@@ -37,9 +37,10 @@ class MemeEngine():
                 font = ImageFont.truetype('./templates/arial.ttf', size=20)
 
                 draw.text((randint(5, 50), randint(5, height-20)),
-                        text + ' - ' + author, font=font, fill='white')
+                          text + ' - ' + author, font=font, fill='white')
 
-                out_path = self.output_dir + '/' +str(randint(0, 10000000)) + self.file_ending
+                out_path = self.output_dir + '/' \
+                    + str(randint(0, 10000000)) + self.file_ending
 
                 if not os.path.exists(self.output_dir):
                     os.mkdir(self.output_dir)
