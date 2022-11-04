@@ -1,5 +1,5 @@
-Meme-Generator
------
+# Meme-Generator
+
 
 ## Introduction
 
@@ -10,6 +10,8 @@ The quote content can be provided in various file types. Currently the QuoteEngi
 Beside the automatic mode to generate random Memes, the user can also manually input an image and it's quote to get the custom Meme generated.
 
 The application can be used via command line and as a web service.
+
+-----
 
 ## Main Files: Project Structure
 
@@ -38,21 +40,32 @@ The application can be used via command line and as a web service.
       ├── app.py *** Contains the flask server implementation
       └── meme.py *** Generates the meme and is the main script to be executed for command line usage
   ```
+-----
+## How to use Meme Generator locally
 
-## Usage
-cd into src!!!
-
-4. **Install the dependencies:**
+1. **Install the dependencies:**
 ```
 pip install -r requirements.txt
 ```
 
-5. **Run the development server:**
+2. **Change directory:**
+First make sure to change directory from root folder to source folder:
+```
+cd ./src
+```
+
+3. **Option 1: Run the development server:**
 ```
 export FLASK_APP=myapp
 export FLASK_ENV=development # enables debug mode
 python3 app.py
 ```
 
-6. **Verify on the Browser**<br>
+4. **Verify on the Browser**<br>
 Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000) 
+
+5. **Option 2: Use the Meme Generator as CLI application:**<br>
+Image path, the quote body and the author are optional parameters.
+```
+python3 meme.py --path {image_path} --body {quote_body} -- author {quote_author}
+```
