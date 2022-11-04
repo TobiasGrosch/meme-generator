@@ -3,7 +3,7 @@ import os
 import sys
 import requests
 
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, request
 
 from MemeEngine import MemeEngine
 from QuoteEngine import Ingestor
@@ -56,12 +56,6 @@ def meme_form():
 @app.route('/create', methods=['POST'])
 def meme_post():
     """ Create a user defined meme """
-
-    # @TODO:
-    # 2. Use the meme object to generate a meme using this temp
-    #    file and the body and author form paramaters.
-    # 3. Remove the temporary saved image.
-
     image_url = request.form['image_url']
     image_extension = image_url.split('.')[-1]
     body = request.form['body']
@@ -73,10 +67,11 @@ def meme_post():
     if not os.path.exists(temp_dir):
         os.mkdir(temp_dir)
     temp_img_path = temp_dir + 'temp_image.' + image_extension
-    with open(temp_img_path, 'wb') as img:
-        img.write(response.content)
 
-    meme = MemeEngine('./tmp', file_ending = '.' + image_extension)
+    with open(temp_img_path, 'wb') as image:
+        image.write(response.content)
+
+    meme.file_ending= ('.' + image_extension)
     path = meme.make_meme(temp_img_path, body, author)
 
     try:
