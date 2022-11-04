@@ -10,14 +10,13 @@ from .Quote import QuoteModel
 from .DocxIngestor import DocxIngestor
 from .CsvIngestor import CsvIngestor
 from .TextIngestor import TextIngestor
-# from .PdfIngestor import PdfIngestor
+from .PdfIngestor import PdfIngestor
 
 
 class Ingestor(IngestorInterface):
     """One common Interface for all ingestor child classes."""
 
-    ingestors = [DocxIngestor, CsvIngestor, TextIngestor]
-    # TODO add PdfIngestor
+    ingestors = [DocxIngestor, CsvIngestor, TextIngestor, PdfIngestor]
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:

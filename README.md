@@ -47,6 +47,13 @@ The application can be used via command line and as a web service.
 ```
 pip install -r requirements.txt
 ```
+The open source XpdfReader utility is used to convert the pdf content to text.
+For furhter information check this page: [XpdfReader](https://www.xpdfreader.com/pdftotext-man.html)
+
+Since the `apt-get`installation method for Ubuntu20.4 of Xpdf is not supported anymore, I recommend to use Homebrew.
+Install Homebrew with the instructions provided [here](https://brew.sh/) and add it to your PATH (details provided at the end of installation process in terminal output).
+
+Once Homebrow is installed, simply run `brew install xpdf` in your terminal.
 
 2. **Change directory:**
 First make sure to change directory from root folder to source folder:
@@ -54,7 +61,7 @@ First make sure to change directory from root folder to source folder:
 cd ./src
 ```
 
-3. **Option 1: Run the development server:**
+3. **Option 1: Run the application with Web server:**
 ```
 export FLASK_APP=myapp
 export FLASK_ENV=development # enables debug mode
